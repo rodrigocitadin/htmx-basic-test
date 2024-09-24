@@ -1,20 +1,20 @@
 package main
 
 import (
-    "net/http"
+	"net/http"
 
-    "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-    e := gin.Default()
-    e.LoadHTMLGlob("templates/*")
+	e := gin.Default()
+	e.LoadHTMLGlob("templates/*")
 
-    e.GET("/", func(ctx *gin.Context) {
-        ctx.HTML(http.StatusOK, "index.html", gin.H{
-            "name": "test",
-        })
-    })
+	e.GET("/", func(ctx *gin.Context) {
+		ctx.HTML(http.StatusOK, "index.html", gin.H{
+			"name": "test",
+		})
+	})
 
-    e.Run(":8080")
+	e.Run(":8080")
 }
