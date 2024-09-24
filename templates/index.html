@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <script src="https://unpkg.com/htmx.org@2.0.2"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+
+  <title>Tasks</title>
+</head>
+
+<body>
+
+  <h1>Tasks</h1>
+
+  <ul id="tasks">
+    {{range .todos}}
+    <li>
+      {{.Title}} - {{.Status}}
+      <button hx-delete="/todos/{{.Id}}">Delete</button>
+    </li>
+    {{else}}
+    <li>No tasks found.</li>
+    {{end}}
+  </ul>
+
+  <form hx-post="/todos" hx-target="#tasks" hx-swap="beforeend">
+    <input name="title" />
+    <input name="status" />
+    <button>Save</button>
+  </form>
+
+</body>
+
+</html>

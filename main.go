@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -16,6 +17,8 @@ func main() {
 
 	e.GET("/", func(ctx *gin.Context) {
 		todos := ReadToDoList()
+        fmt.Println(todos)
+
 		ctx.HTML(http.StatusOK, "index.html", gin.H{
 			"todos": todos,
 		})
@@ -26,7 +29,11 @@ func main() {
 		status := ctx.PostForm("status")
 		id, _ := CreateToDo(title, status)
 
-		ctx.HTML(http.StatusCreated, "task.html", gin.H{
+        fmt.Println(title)
+        fmt.Println(status)
+        fmt.Println(id)
+
+		ctx.HTML(http.StatusOK, "index.html", gin.H{
 			"title":  title,
 			"status": status,
 			"id":     id,

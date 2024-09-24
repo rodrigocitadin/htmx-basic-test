@@ -2,7 +2,10 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 type ToDo struct {
@@ -35,7 +38,7 @@ func InitDatabase() {
 
 func CreateToDo(title string, status string) (int64, error) {
 	result, err := DB.Exec(
-		"INSET INTO todos (title, status) VALUES (?, ?)",
+		"INSERT INTO todos (title, status) VALUES (?, ?)",
 		title,
 		status)
 
@@ -59,6 +62,7 @@ func DeleteTodo(id int64) error {
 
 func ReadToDoList() []ToDo {
 	rows, _ := DB.Query("SELECT id, title, status FROM todos")
+    fmt.Println(rows)
 	defer rows.Close()
 
 	todos := make([]ToDo, 0)
@@ -69,5 +73,6 @@ func ReadToDoList() []ToDo {
 		todos = append(todos, todo)
 	}
 
+    fmt.Println(todos)
 	return todos
 }
